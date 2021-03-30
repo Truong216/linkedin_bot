@@ -61,8 +61,8 @@ async function getDemo(){
     const imgs = await page.$$eval('img.pv-top-card__photo[src]', imgs => imgs.map(img => img.getAttribute('src'))); 
     if (imgs[0] != `data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7`) 
     {
-        request(imgs[0]).pipe(fs.createWriteStream('test.png'))
-        const image = await Jimp.read("./test.png");
+        await request(imgs[0]).pipe(fs.createWriteStream('test.png'))
+        const image = await Jimp.read(imgs[0]);
         image.rotate(30)
                 .crop(0, 155, 276, 101)
                 .write("new.png"); 
